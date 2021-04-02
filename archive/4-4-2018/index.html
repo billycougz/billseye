@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<title>Dart Database - BCDC</title>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	<link rel="apple-touch-icon" href="img/darts.jpg"/>
+	<!--<link rel="icon" href="img/darts.jpg"/>-->
+	<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css"  type="text/css" rel="stylesheet">
+  	<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css"  type="text/css" rel="stylesheet">	
+	<link rel="stylesheet" type="text/css" href="//cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.12.4/css/bootstrap-select.min.css" crossorigin="anonymous">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-table/1.10.1/bootstrap-table.min.css">
+	<link href="darts.css" type="text/css" rel="stylesheet">	
+</head>
+
+<body>
+
+
+
+<!------------------------------------------- Header Start --------------------------------------->
+<div id="header">
+	<div id="header-container" class="container">
+		<a href="."><img id="logo" src="img/color-board.png"  style="max-width: 100%"/></a>
+		<div id="logoText" style="position: absolute; top: 45.5%; left: 50%; transform: translate(-50%, -50%); -webkit-text-stroke: 2px #FFFF99; font-size: 75px; line-height: 1">BILLSEYE</div>
+		<div id="top-nav" style="display: none">
+			<ul id="newNav" class="nav nav-pills">
+				<li role="presentation" class="active" style="display: none"><a onClick="hideData()">Add Game</a></li>
+				<li role="presentation" class="active"><a onClick="showGamesDesktop()">Game History</a></li>
+				<li role="presentation"><a onClick="showPlayersDesktop()">Leaderboard</a></li>
+				<li role="presentation"><a onClick="hideData()" id="testButton">Run Test</a></li>
+			</ul>
+		</div>
+		<button id="addAppButton" class="btn btn-info" type="button" style="display: none; margin-bottom: 8px;margin-left: 25px">Add Mobile App</button>
+		<button id="quickButton" class="btn btn-info" style="display: none; margin-bottom: 8px;margin-left: 10px" type="button">Quick</button>
+	</div>
+</div>
+<!------------------------------------------- Header End --------------------------------------->
+
+
+
+<!------------------------------------------- Main Content Start --------------------------------------->
+<div id="main-content" class="container" style="padding-bottom: 50px">
+	<!------------------------------------------- Add Game Form Start --------------------------------------->
+	<div id="addGameTile" class="col-lg-3" style="display: none">
+		<form id="formID" class="tile">
+			<div class="row">
+				<!------------------------------------------- Add Game Inputs Start --------------------------------------->
+				<div class="col-xs-12"><h3 style="margin-top: 0">Add New Game</h3><hr style="margin: 0"></div>
+				<div class="col-xs-12 hideIfQuick">
+					<div class="input-group">
+					  <span class="input-group-addon">Date</span>
+					  <input id="today" type="date" class="form-control" name="date" aria-describedby="basic-addon1">
+					</div>
+				</div>
+				<div class="col-xs-12 hideIfQuick">
+					<div class="input-group">
+					  <span class="input-group-addon">Location</span>
+						<select id="locationSelect" name="location" class="selectpicker" data-live-search="true">
+					  	<option></option>
+					  	<option value="Add New">(+) Add New</option>
+						</select>			
+					</div>
+				</div>
+				<div class="col-xs-12 hideIfQuick" style="display: none">
+					<div class="input-group">
+					  <span class="input-group-addon">Event</span>
+						<select id="eventSelect" name="event" class="selectpicker" data-live-search="true">
+						  <option></option>
+						  <option value="Add New">(+) Add New</option>
+						</select>			
+					</div>
+				</div>
+				<div class="col-xs-12 hideIfQuick">
+					<div class="input-group">
+					  <span class="input-group-addon">Game</span>
+						<select id="gameNameSelect" name="gameName" class="selectpicker" data-live-search="true">
+					  	<option></option>
+						<option value="Add New">(+) Add New</option>
+						</select>			
+					</div>
+				</div>
+				<div class="col-xs-12 hideIfQuick" style="display: none">
+					<div class="input-group">
+					  <span class="input-group-addon">Type</span>
+						<select name="type" class="selectpicker" id="type">
+						  <option>1 v 1</option>
+						  <option>Teams</option>
+						</select>
+					</div>
+				</div>
+				<div class="col-xs-12">
+					<div class="input-group">
+					  <span class="input-group-addon">Winner</span>
+					  <select id="winnerSelect" name="winner" class="selectpicker" data-live-search="true">
+					  	<option></option>
+						<option value="Add New">(+) Add New</option>
+					  </select>
+					</div>
+				</div>
+				<div class="col-xs-12">
+					<div class="input-group">
+					  <span class="input-group-addon">Loser</span>
+					  <select id="loserSelect" name="loser" class="selectpicker" data-live-search="true">
+					  	<option></option>
+						<option value="Add New">(+) Add New</option>
+					  </select>
+					</div>
+				</div>
+				<div class="col-xs-12 hideIfQuick">
+					<div class="input-group">
+					  <span class="input-group-addon">Overtime</span>
+						<select name="overtime" class="selectpicker">
+						  <option>No</option>
+						  <option>Yes</option>
+						</select>
+					</div>
+				</div>
+				<div class="col-xs-12" style="display: none">
+					<div class="input-group">
+					  <span class="input-group-addon">Test</span>
+						<select id="testSelect" name="test">
+						  <option value="0">False</option>
+						  <option value="1">True</option>
+						</select>
+					</div>
+				</div>
+				<div class="col-xs-12">
+					<button id="submitGameButton" class="btn btn-success" style="width: 100%" type="submit">Submit</button>
+				</div>
+				<!------------------------------------------- Add Game Inputs End --------------------------------------->
+				
+				<!------------------------------------------- Add Game Test Message --------------------------------------->
+				<div class="col-xs-12" id="testAlert" style="display: none;">
+					<div class="alert alert-warning" style="margin: 0">
+						<strong>This is a test.</strong> Any data submitted to the database will be deleted.
+					</div>
+				</div>
+				
+				<!------------------------------------------- Quick Mode Message --------------------------------------->
+				<div class="col-xs-12" id="quickAlert" style="display: none;">
+					<div class="alert alert-warning">
+						<strong>Quick Mode: </strong> Data will be submitted as:
+						<ul>
+							<li>Date: Today</li>
+							<li>Location: Salmon Brook</li>
+							<li style="display: none">Event: None</li>
+							<li>Game: Cricket (No Points)</li>
+							<li style="display: none">Type: 1 v 1</li>
+							<li>Overtime: No</li>
+						</ul>
+					</div>
+				</div>
+				
+				<!------------------------------------------- Add Game Submit Button --------------------------------------->
+				<!--<div class="col-md-4"><button id="submitGameButton" class="btn btn-success" style="width: 100%" type="submit">Submit</button></div>-->
+				<!--<div class="col-md-4">	
+					<button id="addEmailButton" class="btn btn-success" style="width: 100%" type="button" onClick="addEmailButtonClicked()">Subscribe</button>
+				</div>-->
+			</div>
+		</form>	
+	</div>
+	<!------------------------------------------- Add Game Form End --------------------------------------->
+
+	<!------------------------------------------- Add Game Success Message --------------------------------------->
+	<div id="gameAdded" class="alert alert-success col-lg-3" style="display: none">
+	  <strong>Game Added!</strong>
+	</div>
+	
+	<!------------------------------------------- Game History & Leaderboard Placeholder --------------------------------------->
+	<div id="gameFilterPlaceholder"></div>
+	<div class="col-lg-9 hide-not-lg"><div id="gameFilterPlaceholderDesktop"></div></div>
+	<div id="playerFilterPlaceholder"></div>
+	<div id="gameAddedSpace" class="col-lg-3" style="display: none" style="height: 300px"></div>
+	<div id="data-table-container" class="col-lg-9"><div id="gameTable" class="tile table-tile gameTableClass" style="visibility: hidden"></div></div>
+	
+</div>
+<!------------------------------------------- Container Fluid End --------------------------------------->
+
+<!------------------------------------------- Add Player, Event, Location, Game Name Modal Start --------------------------------------->
+<div id="addModal" class="modal fade" tabindex="-1" role="dialog">
+<form id="addFormID">
+
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 id="addModalTitle" class="modal-title"></h4>
+      </div>
+      <div class="modal-body">
+<div id="addPlayerInputs">   
+	 <div class="input-group col-xs-12">
+	  <span class="input-group-addon" id="sizing-addon2">First Name</span>
+	  <input name="fname" type="text" class="form-control modalInput" placeholder="" aria-describedby="sizing-addon2">
+	</div>
+	<div class="input-group col-xs-12">
+	  <span class="input-group-addon" id="sizing-addon2">Last Name</span>
+	  <input name="lname" type="text" class="form-control modalInput" placeholder="" aria-describedby="sizing-addon2">
+	</div>
+	<div class="input-group col-xs-12">
+	  <span class="input-group-addon" id="sizing-addon2">Alias</span>
+	  <input name="alias" type="text" class="form-control modalInput" placeholder="" aria-describedby="sizing-addon2">
+	</div>
+</div>
+
+<div id="addLocationInput" class="input-group col-xs-12">
+  <span class="input-group-addon" id="sizing-addon2">Location Name</span>
+  <input name="locationName" type="text" class="form-control modalInput" placeholder="" aria-describedby="sizing-addon2">
+</div>
+<div id="addEventInput" class="input-group col-xs-12">
+  <span class="input-group-addon" id="sizing-addon2">Event Name</span>
+  <input name="eventName" type="text" class="form-control modalInput" placeholder="" aria-describedby="sizing-addon2">
+</div>
+<div id="addGameNameInput" class="input-group col-xs-12">
+  <span class="input-group-addon" id="sizing-addon2">Game Name</span>
+  <input name="gameName" type="text" class="form-control modalInput" placeholder="" aria-describedby="sizing-addon2">
+</div>
+<div id="addEmailInputs">
+	<div class="input-group col-xs-12">
+	  <span class="input-group-addon" id="sizing-addon2">Phone Number</span>
+	  <input name="address" type="text" class="form-control modalInput" placeholder="" aria-describedby="sizing-addon2">
+	</div>  
+	<div class="input-group col-xs-12">
+	  <span class="input-group-addon">Carrier</span>
+		<select name="overtime" class="selectpicker">
+			<option></option>
+			<option>Verizon</option>
+			<option>AT&T</option>
+		</select>
+	</div>
+</div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal" onClick="clearModalInputs()">Cancel</button>
+        <button id="addObjectButton" type="submit" class="btn btn-primary">Add</button>
+        <br><br>
+	<div id="objectAdded" class="alert alert-success" style="display: none; text-align: left">
+	  <strong id="objectAddedMsg"></strong>
+	</div>
+      </div>
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+  </form>      
+</div><!-- /.modal -->
+<!------------------------------------------- Add Player, Event, Location, Game Name Modal End --------------------------------------->
+
+<!------------------------------------------- Add App Modal Start --------------------------------------->
+<div id="addAppModal" class="modal fade" tabindex="-1" role="dialog">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title">Add Mobile App</h4>
+      </div>
+      <div class="modal-body">
+<p>iOS: Open BILLSEYE in Safari. Tap the share button. Select "Add to Home Screen".</p>
+				<p>Android: Open BILLSEYE in Chrome. Tap the menu button. Select "Add to homescreen".</p>      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+      </div>
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+<!------------------------------------------- Add App Modal End --------------------------------------->
+
+<!------------------------------------------- Game Modal Start --------------------------------------->
+<div id="gameModal" class="modal fade" tabindex="-1" role="dialog">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 id="detailModalTitle" class="modal-title"></h4>
+      </div>
+      <div class="modal-body">
+      	<p id="gameModalDate"></p>
+      	<p id="gameModalLocation"></p>
+      	<p id="gameModalName"></p>
+      	<p id="gameModalMatchup"></p>
+      	<p id="gameModalWinner"></p>
+      	<p id="playerGameTableHeader"></p>
+      	<div id="playerGameTable"></div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+      </div>
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+<!------------------------------------------- Game Modal End --------------------------------------->
+
+<!------------------------------------------- Footer Start --------------------------------------->
+<div id="footer" class="col-xs-12 navbar navbar-fixed-bottom" style="margin-bottom: 0; background-color: white; border-top: 1px solid #eee">
+	<div class="row nav" id="bottomNav">
+		<div class="col-xs-4 text-center"><a id="mobile-add-game" class="bottom-nav-link active"><i class="glyphicon glyphicon-plus"></i><br>Add Game</a></div>
+		<div class="col-xs-4 text-center"><a id="mobile-game-history" class="bottom-nav-link"><i class="glyphicon glyphicon-list-alt"></i><br>Game History</a></div>
+		<div class="col-xs-4 text-center"><a id="mobile-leaderboard" class="bottom-nav-link"><i class="glyphicon glyphicon-sunglasses"></i><br>Leaderboard</a></div>
+	</div>
+</div>
+<!------------------------------------------- Footer End --------------------------------------->
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+<script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>	
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-table/1.10.1/bootstrap-table.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.12.4/js/bootstrap-select.min.js"></script>
+<script src="js/post-data.js"></script>
+<script src="js/show-games.js"></script>
+<script src="js/show-players.js"></script>
+<script src="js/get-data.js"></script>
+<script src="js/darts.js"></script>
+</body>
+</html>

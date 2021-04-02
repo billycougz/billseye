@@ -1,0 +1,294 @@
+/******************** Global ********************/
+@media only screen  and (min-width : 1224px) {
+	#data-table-container {
+		margin-top: -15px;
+	}
+	.container-fluid {
+		margin: 0 10%;
+	}
+	.tile {
+		// border: 1px solid #e7e7e7;
+		 border-radius: 4px;
+	}
+}
+
+@media only screen  and (max-width : 1223px) {
+	#data-table-container {
+		margin-top: 0;
+		padding: 0;
+	}
+	.hide-not-lg {
+		display: none;
+	}
+	.container {
+		margin: 0;
+		padding: 0;
+		width: 100%;
+	}
+	body.modal-open {
+	  position: fixed;
+	}
+}
+
+.caption {
+	background-color: #c4ecff;
+	border: 1px solid #66ccff;
+	border-radius: 4px;
+	padding: 10px !important;
+}
+
+.bottom-nav-link i {
+	font-size: 1.75em;
+	margin-top: 1px;
+}
+
+ul.ui-autocomplete {
+    z-index: 1100;
+}
+
+.group-button {
+	width: 100%;
+}
+
+#game-filter-button {
+	//margin-bottom: 15px;
+	//background-color: #66ccff;
+	width: 100%;
+}
+
+h3 {
+	margin-top: 0;
+	display: inline-block;
+}
+
+.tile {
+    padding: 15px;
+    background-color: white;
+    margin: 5px 0;
+   // border-top: 1px solid #e7e7e7;
+  //  border-bottom: 1px solid #e7e7e7;
+    box-shadow: 0 0 0 1px rgba(0,0,0,.1), 0 2px 3px rgba(0,0,0,.2);
+}
+
+.tile-header {
+	margin: 0 !important;
+}
+
+.table-tile {
+    padding: 0px;
+}
+
+#addGameTile {
+	margin: 0;
+	margin-top: 5px;
+	padding: 0;
+}
+
+.col-xs-12 {
+	margin-bottom: 0 !important;
+}
+
+body {
+	max-width: 100%;
+	background-color: #F5F5F5;
+}
+
+[class*="col-"] {
+	margin-top: 10px;
+	margin-bottom: 10px;
+}
+
+.game-filter {
+	margin-top: 0;
+	margin-bottom: 0;
+}
+
+a {
+	color: #555;
+}
+
+a:hover {
+	color: #555;
+}
+
+.game-filter-input {
+	width: 100% !important;
+}
+
+.player-filter-input {
+	width: 100% !important;
+}
+
+.navbar-form {
+	border: 0;
+}
+
+#clearFiltersButton {
+	//width: 100%;
+}
+#saveFiltersButton {
+	//width: 100%;
+}
+
+/******************** Inputs ********************/
+.input-group {
+	width: 100%;
+}
+
+.input-group-addon {
+	width: 50%;
+	background-color: #66ccff;
+	border-color: #66ccff;
+}
+
+.form-control {
+	border-color: #66ccff;
+}
+
+#today {
+	height: 33px;
+}
+
+li.no-results:after {
+   content: '\A Delete your search and select "(+) Add New"';
+   white-space: pre;
+}
+
+.input-group-btn {
+	width: 50%;
+}
+
+@media only screen  and (max-width : 1223px) {
+	input[type="date"],
+	input[type="email"],
+	input[type="number"],
+	input[type="password"],
+	input[type="search"],
+	input[type="tel"],
+	input[type="text"],
+	select:focus,
+	textarea {
+	  font-size: 16px;
+	}
+}
+
+/******************* Table *********************/
+#gameFilter {
+	margin-bottom: 10px;
+}
+
+#playerFilter {
+	margin-bottom: 10px;
+}
+
+.table-hover {
+	margin-bottom: 0;
+}
+
+th {
+	background-color: white;;
+	color: #555;
+}
+
+tr {
+	cursor: pointer;
+}
+
+/******************** Header ********************/
+
+#header {
+	background-color: #66CCFF;
+	border-bottom: 1px solid #5aafd9;
+}
+
+#header-container {
+	width: 500px;
+	max-width: 100%; 
+	margin: auto; 
+	position: relative; 
+	color: black;
+}
+
+.navbar {
+	background-color: white;
+}
+
+
+
+
+
+#logo {
+	vertical-align: bottom;
+}
+
+.btn-info{
+	background-color: #66ccff;
+	border: none;
+}
+
+.dropdown-toggle {
+	border-color: #66ccff;
+}
+
+.icon-bar {
+	background-color: #555;
+}
+
+#top-nav {
+	display: none;
+	/*text-align: center;
+	border: 1px solid #66ccff;
+	border-radius: 1em;*/
+}
+
+#top-nav ul {
+	display: inline-block;
+	margin-top: 5px;
+	padding: 0px 5px 5px 5px;
+	margin-bottom: -5px;
+}
+
+#top-nav ul li {
+	cursor: pointer;
+}
+
+#top-nav ul li a {
+	padding: 8px;
+	cursor: pointer;
+}
+
+#top-nav ul li.active a {
+	background-color: #66ccff;
+}
+
+/******************** Footer ********************/
+/* The html and body elements cannot have any padding or margin. */
+html,
+body {
+  height: 100%;
+}
+
+.bottom-nav-link{
+	cursor: pointer;
+}
+
+.bottom-nav-link:hover{
+	text-decoration: none;
+}
+
+.bottom-nav-link.active{
+	color: #66ccff;
+}
+
+/******************** Desktops and laptops ********************/
+@media only screen  and (min-width : 1224px) {
+	#top-nav{
+		display: inline-block;
+	}
+	#footer{
+		display: none;
+	}
+	#addAppButton{
+		display: none;
+	}
+}

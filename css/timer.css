@@ -1,0 +1,56 @@
+#timer-container.initial #timerButton {
+	width: 100%;
+}
+
+#timer-container.started #timerButton {
+	width: 50%;
+}
+
+#timer-container.stopped #timerButton {
+	display: none;
+}
+
+#timer-cancel-button {
+	margin-left: 5px;
+	vertical-align: bottom;
+	cursor: pointer;
+}
+
+#timer-container.stopped #timer-cancel-button {
+	vertical-align: middle;
+}
+
+#timerCounter {
+	margin-left: 5px;
+}
+
+#timer-container.initial #timer-inner-container {
+	display: none;
+}
+
+#timer-container.started #timer-inner-container {
+	display: inline-block;
+}
+
+#timer-container.stopped #timer-inner-container {
+	display: block;
+	border: 1px solid #66CCFF;
+	border-radius: 4px;
+}
+
+#timer-container.initial #gameDuration {
+	display: none;
+}
+
+#timer-container.started #gameDuration {
+	display: none;
+}
+
+#timer-container.stopped #gameDuration {
+	display: inline-block;
+	margin-right: 5px;
+	line-height: inherit;
+	width: 50%;
+	height: 33px;
+	background-color: #66CCFF;
+}

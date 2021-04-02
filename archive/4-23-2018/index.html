@@ -1,0 +1,525 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<title>Billseye Dart Database</title>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	<link rel="apple-touch-icon" href="img/color-board.png"/>
+	<!--<link rel="icon" href="img/color-board.png"/>-->
+	<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css"  type="text/css" rel="stylesheet">
+  	<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css"  type="text/css" rel="stylesheet">	
+	<link rel="stylesheet" type="text/css" href="//cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.12.4/css/bootstrap-select.min.css" crossorigin="anonymous">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-table/1.10.1/bootstrap-table.min.css">
+	<link href="https://code.jquery.com/ui/1.12.0/themes/smoothness/jquery-ui.css"  type="text/css" rel="stylesheet">
+	<link href="darts.css" type="text/css" rel="stylesheet">	
+	<link href="css/timer.css" type="text/css" rel="stylesheet">
+</head>
+
+<body>
+
+
+
+<!------------------------------------------- Top Navigation --------------------------------------->
+<div id="header">
+	<div id="header-container" class="container">
+		<a href="."><img id="logo" src="img/color-board.png"  style="max-width: 100%"/></a>
+		<div id="logoText" style="position: absolute; top: 45.5%; left: 50%; transform: translate(-50%, -50%); -webkit-text-stroke: 2px #FFFF99; font-size: 75px; line-height: 1">BILLSEYE</div>
+		<div id="top-nav" style="display: none">
+			<ul id="newNav" class="nav nav-pills">
+				<li role="presentation" class="active" style="display: none"><a onClick="hideData()">Add Game</a></li>
+				<li role="presentation" class="active"><a onClick="showGames()">Game History</a></li>
+				<li role="presentation"><a onClick="showPlayers()">Leaderboard</a></li>
+				<li role="presentation"><a onClick="" id="groups-button" class="">Groups</a></li>
+			</ul>
+		</div>
+		<button id="addAppButton" class="btn btn-info" type="button" style="display: none; margin-bottom: 8px;margin-left: 25px">Add Mobile App</button>
+	</div>
+</div>
+
+<div class="container">
+	<div id="group-greeting-container" class="col-xs-12" style="display: none; padding: 0">
+		<div id="group-greeting-text" class="tile"></div>
+	</div>
+</div>
+
+<!------------------------------------------- Main Content Start --------------------------------------->
+<div id="main-content" class="container" style="padding-bottom: 50px">
+	<!------------------------------------------- Add Game Form Start --------------------------------------->
+	<div id="addGameTile" class="col-lg-3" style="display: none">
+		<form id="formID" class="tile">
+			<div class="row">
+				<div class="col-xs-12" style="margin-top: 0"><h3>Add New Game</h3><hr style="margin: 0"></div>
+				<div id="timer-container" class="col-xs-12 initial">
+					<button id="timerButton" class="btn btn-warning" type="button">Start Timer</button>
+					<div id="timer-inner-container" class="initial">
+						<span id="gameDuration" class="input-group-addon">Duration </span>
+						<span id="timerCounter" style="display: none; vertical-align: middle"></span>
+						<span id="minutesCounter" style="vertical-align: middle"></span>
+						<span id="secondsCounter" style="margin-left: -4px; vertical-align: middle"></span>
+						<input id="durationInput" name="duration" type="hidden"/>
+						<a><span id="timer-cancel-button"> Cancel</span></a>
+					</div>
+				</div>
+				<div class="col-xs-12 hideIfQuick">
+					<div class="input-group">
+					  <span class="input-group-addon">Date</span>
+					  <input id="today" type="date" class="form-control" name="date" aria-describedby="basic-addon1">
+					</div>
+				</div>
+				<div class="col-xs-12 hideIfQuick">
+					<div class="input-group">
+					  <span class="input-group-addon">Location</span>
+						<select id="locationSelect" name="location" class="selectpicker locationSelect" data-live-search="true">
+					  	<option></option>
+					  	<option value="Add New">(+) Add New</option>
+						</select>			
+					</div>
+				</div>
+				<div class="col-xs-12 hideIfQuick" style="display: none">
+					<div class="input-group">
+					  <span class="input-group-addon">Event</span>
+						<select id="eventSelect" name="event" class="selectpicker" data-live-search="true">
+						  <option></option>
+						  <option value="Add New">(+) Add New</option>
+						</select>			
+					</div>
+				</div>
+				<div class="col-xs-12 hideIfQuick">
+					<div class="input-group">
+					  <span class="input-group-addon">Game</span>
+						<select id="gameNameSelect" name="gameName" class="selectpicker gameNameSelect" data-live-search="true">
+					  	<option></option>
+						<option value="Add New">(+) Add New</option>
+						</select>			
+					</div>
+				</div>
+				<div class="col-xs-12 hideIfQuick" style="display: none">
+					<div class="input-group">
+					  <span class="input-group-addon">Type</span>
+						<select name="type" class="selectpicker" id="type">
+						  <option>1 v 1</option>
+						  <option>Teams</option>
+						</select>
+					</div>
+				</div>
+				<div class="col-xs-12">
+					<div class="input-group">
+					  <span class="input-group-addon">Winner</span>
+					  <select id="winnerSelect" name="winner" class="selectpicker playerSelect" data-live-search="true">
+					  	<option></option>
+						<option value="Add New">(+) Add New</option>
+					  </select>
+					</div>
+				</div>
+				<div class="col-xs-12">
+					<div class="input-group">
+					  <span class="input-group-addon">Loser</span>
+					  <select id="loserSelect" name="loser" class="selectpicker playerSelect" data-live-search="true">
+					  	<option></option>
+						<option value="Add New">(+) Add New</option>
+					  </select>
+					</div>
+				</div>
+				<div class="col-xs-12 hideIfQuick">
+					<div class="input-group">
+					  <span class="input-group-addon">Overtime</span>
+						<select name="overtime" class="selectpicker">
+						  <option>No</option>
+						  <option>Yes</option>
+						</select>
+					</div>
+				</div>
+				<div class="col-xs-12" style="display: none">
+					<div class="input-group">
+					  <span class="input-group-addon">Test</span>
+						<select id="testSelect" name="test">
+						  <option value="0">False</option>
+						  <option value="1">True</option>
+						</select>
+					</div>
+				</div>
+				<div class="col-xs-12">
+					<button id="submitGameButton" class="btn btn-success" style="width: 100%" type="submit" onclick="ga('send', 'event', 'Submit Game Button', 'Click')">Submit</button>
+				</div>
+				<!------------------------------------------- Add Game Inputs End --------------------------------------->
+				
+				<!------------------------------------------- Add Game Test Message --------------------------------------->
+				<div class="col-xs-12" id="testAlert" style="display: none;">
+					<div class="alert alert-warning" style="margin: 0">
+						<strong>This is a test.</strong> This game will be deleted from the database. Refresh the page to exit test mode.
+					</div>
+				</div>
+				
+				<!------------------------------------------- Quick Mode Message --------------------------------------->
+				<div class="col-xs-12" id="quickAlert" style="display: none;">
+					<div class="alert alert-warning">
+						<strong>Quick Mode: </strong> Data will be submitted as:
+						<ul>
+							<li>Date: Today</li>
+							<li>Location: Salmon Brook</li>
+							<li style="display: none">Event: None</li>
+							<li>Game: Cricket (No Points)</li>
+							<li style="display: none">Type: 1 v 1</li>
+							<li>Overtime: No</li>
+						</ul>
+					</div>
+				</div>
+				
+				<!------------------------------------------- Add Game Submit Button --------------------------------------->
+				<!--<div class="col-md-4"><button id="submitGameButton" class="btn btn-success" style="width: 100%" type="submit">Submit</button></div>-->
+				<!--<div class="col-md-4">	
+					<button id="addEmailButton" class="btn btn-success" style="width: 100%" type="button" onClick="addEmailButtonClicked()">Subscribe</button>
+				</div>-->
+			</div>
+		</form>	
+		<div id="gameAdded" class="col-lg-12 tile" style="display: none; height: 440px">
+			<div class="alert alert-success col-lg-12">
+				<strong>Your game was added!</strong>
+			</div>
+		</div>
+	</div>
+	
+	<!------------------------------------------- Game History & Leaderboard Placeholder --------------------------------------->
+	<div id="gameAddedSpace" class="col-lg-3" style="display: none" style="height: 300px"></div>
+	<div id="data-table-container" class="col-lg-9" style="padding-right: 0; margin-top: 10px; visibility: hidden">
+		<div id="game-table-tile" class="tile" style="margin-top: 0">
+			<div class="col-xs-12 col-lg-3 tile-header" style="display: inline-block; padding: 0 0 5px 0"><h3 id="tile-header"></h3></div>
+			<div id="groups-options-container" class="col-xs-12 col-lg-9" style="display: none; padding: 0 0 5px 0; margin-top: 0px">
+				<div class="col-xs-4  tile-header" style="padding: 0 5px 0 0"><button id="join-group-button" type="btn" class="btn btn-info group-button" style="width: 100%">Join</button></div>
+				<div class="col-xs-4 tile-header" style="padding: 0 5px 0 5px"><button id="create-group-button" type="btn" class="btn btn-info group-button" style="width: 100%">Create</button></div>
+				<!--<div class="col-xs-4  tile-header" style="padding: 0 0 0 5px"><button id="filter-group-button" type="btn" class="btn btn-info group-button" style="width: 100%">Filter</button></div>-->
+				<div class="col-xs-4  tile-header" style="padding: 0 0 0 5px"><button id="default-group-button" type="btn" class="btn btn-info group-button" style="width: 100%">Default</button></div>
+			</div>
+			<div id="main-filter" class="col-xs-12 col-lg-9 tile-header" style="padding: 0 0 5px 0"><button id="game-filter-button" type="btn" class="btn btn-info">Filter</button></div>
+			<div id="gameTable" class="gameTableClass"></div>
+		</div>
+	</div>
+</div>
+<!------------------------------------------- Main Content End --------------------------------------->
+
+<!------------------------------------------- Add Player, Event, Location, Game Name Modal --------------------------------------->
+<div id="addModal" class="modal fade" tabindex="-1" role="dialog">
+	<form id="addFormID">
+	
+		<div class="modal-dialog" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+					<h4 id="addModalTitle" class="modal-title"></h4>
+				</div>
+				<div class="modal-body">
+					<div id="addPlayerInputs">   
+						<div class="input-group col-xs-12">
+							<span class="input-group-addon" id="sizing-addon2">First Name</span>
+							<input name="fname" type="text" class="form-control modalInput" placeholder="" aria-describedby="sizing-addon2">
+						</div>
+						<div class="input-group col-xs-12">
+							<span class="input-group-addon" id="sizing-addon2">Last Name</span>
+							<input name="lname" type="text" class="form-control modalInput" placeholder="" aria-describedby="sizing-addon2">
+						</div>
+						<div class="input-group col-xs-12">
+							<span class="input-group-addon" id="sizing-addon2">Alias</span>
+							<input name="alias" type="text" class="form-control modalInput" placeholder="" aria-describedby="sizing-addon2">
+						</div>
+					</div>
+					
+					<div id="addLocationInput" class="input-group col-xs-12">
+						<span class="input-group-addon" id="sizing-addon2">Location Name</span>
+						<input name="locationName" type="text" class="form-control modalInput" placeholder="" aria-describedby="sizing-addon2">
+					</div>
+					
+					<div id="addEventInput" class="input-group col-xs-12">
+						<span class="input-group-addon" id="sizing-addon2">Event Name</span>
+						<input name="eventName" type="text" class="form-control modalInput" placeholder="" aria-describedby="sizing-addon2">
+					</div>
+					
+					<div id="addGameNameInput" class="input-group col-xs-12">
+						<span class="input-group-addon" id="sizing-addon2">Game Name</span>
+						<input name="gameName" type="text" class="form-control modalInput" placeholder="" aria-describedby="sizing-addon2">
+					</div>
+					
+					<div id="addEmailInputs">
+						<div class="input-group col-xs-12">
+							<span class="input-group-addon" id="sizing-addon2">Phone Number</span>
+							<input name="address" type="text" class="form-control modalInput" placeholder="" aria-describedby="sizing-addon2">
+						</div>  
+						<div class="input-group col-xs-12">
+							<span class="input-group-addon">Carrier</span>
+							<select name="overtime" class="selectpicker">
+								<option></option>
+								<option>Verizon</option>
+								<option>AT&T</option>
+							</select>
+						</div>
+					</div>
+					
+					<div id="create-group-inputs">
+						<div class="input-group col-xs-12">
+							<span class="input-group-addon" id="sizing-addon2">Group Name</span>
+							<input name="groupNameInput" type="text" class="form-control modalInput" placeholder="" aria-describedby="sizing-addon2">
+						</div>
+						<div class="input-group col-xs-12">
+							<div class="input-group">
+								<span class="input-group-addon">Primary Location</span>
+								<select id="primaryLocationInput" name="primaryLocationInput" class="selectpicker locationSelect" data-live-search="true">
+									<option></option>
+								</select>
+							</div>
+						</div>
+					</div>
+					
+					<div id="join-group-inputs">
+						<div class="input-group col-xs-12">
+							<div class="input-group">
+								<span class="input-group-addon">Player Alias</span>
+								<select id="joinGroupPlayerInput" name="joinGroupPlayerInput" class="selectpicker playerSelect" data-live-search="true">
+									<option></option>
+								</select>
+							</div>
+						</div>
+						<div class="input-group col-xs-12">
+							<div class="input-group">
+								<span class="input-group-addon">Group</span>
+								<select id="joinGroupGroupInput" name="joinGroupGroupInput" class="selectpicker groupSelect" data-live-search="true">
+									<option></option>
+								</select>
+							</div>
+						</div>
+					</div>
+					<div id="default-group-inputs">
+						<div class="input-group col-xs-12 caption">
+							<p style="margin: 0">Set a default group for this device.</p>
+							<p style="margin: 0">The <strong>Game History</strong> and <strong>Leaderboard</strong> will filter to this group by default.</p>
+						</div>
+						<div class="input-group col-xs-12">
+							<div class="input-group">
+								<span class="input-group-addon">Group</span>
+								<select id="defaultGroupGroupInput" name="defaultGroupGroupInput" class="selectpicker groupSelect" data-live-search="true">
+									<option></option>
+								</select>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-default" data-dismiss="modal" onClick="clearModalInputs()">Cancel</button>
+					<button id="addObjectButton" type="submit" class="btn btn-info">Add</button>
+					<br><br>
+					<div id="objectAdded" class="alert alert-success" style="display: none; text-align: left"><strong id="objectAddedMsg"></strong></div>
+				</div>
+			</div><!-- /.modal-content -->
+		</div><!-- /.modal-dialog -->
+	</form>      
+</div><!-- /.modal -->
+
+<!------------------------------------------- Add App Modal --------------------------------------->
+<div id="addAppModal" class="modal fade" tabindex="-1" role="dialog">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title">Add Mobile App</h4>
+      </div>
+      <div class="modal-body">
+<p>iOS: Open BILLSEYE in Safari. Tap the share button. Select "Add to Home Screen".</p>
+				<p>Android: Open BILLSEYE in Chrome. Tap the menu button. Select "Add to homescreen".</p>      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+      </div>
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
+<!------------------------------------------- Filter Modal --------------------------------------->
+<div id="filter-modal" class="modal fade" tabindex="-1" role="dialog">
+	<div class="modal-dialog" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+				<!--<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>-->
+				<h4 id="filter-title" class="modal-title"></h4>
+			</div>
+			<div class="modal-body">				
+				<div id="gameFilter" style="display: none"><!-- Start Game Filter Inputs-->
+					<div class="row">
+						<div class="col-xs-12">
+							<div class="input-group">
+								<span class="input-group-addon">Group</span>
+								<select id="groupFilter" class="selectpicker groupSelect game-filter-input" data-live-search="true">
+									<option></option>
+								</select>
+							</div>
+						</div>
+						<div class="col-xs-12">
+							<div class="input-group">
+								<span class="input-group-addon">Player 1</span>
+								<select id="playerOneFilter" class="selectpicker playerSelect game-filter-input" data-live-search="true">
+									<option></option>
+								</select>
+							</div>
+						</div>
+						<div class="col-xs-12">
+							<div class="input-group">
+								<span class="input-group-addon">Player 2</span>
+								<select id="playerTwoFilter" class="selectpicker playerSelect game-filter-input" data-live-search="true">
+									<option></option>
+								</select>
+							</div>
+						</div>
+						<div class="col-xs-12">
+							<div class="input-group">
+								<span class="input-group-addon">Game</span>
+								<select id="gameNameFilter" class="selectpicker gameNameSelect game-filter-input" data-live-search="true">
+									<option></option>
+								</select>
+							</div>
+						</div>
+						<div class="col-xs-12">
+							<div class="input-group">
+								<span class="input-group-addon">Location</span>
+								<select id="locationFilter" class="selectpicker locationSelect game-filter-input" data-live-search="true">
+									<option></option>
+								</select>
+							</div>
+						</div>
+						<div class="form-group col-xs-12" style="display: none">
+							<input id="dateFilter" type="date" class="form-control game-filter-input" placeholder="Date">
+						</div>
+					</div>
+				</div><!-- End Game Filter Inputs-->
+				<div id="playerFilter" style="display: none"><!-- Start Game Filter Inputs-->
+					<div class="row">
+						<div class="col-xs-12">
+							<div class="input-group">
+								<span class="input-group-addon">Group</span>
+								<select id="player-filter-group" class="selectpicker groupSelect player-filter-input" data-live-search="true">
+									<option></option>
+								</select>
+							</div>
+						</div>
+						<!--<div class="col-xs-12">
+							<div class="input-group">
+								<span class="input-group-addon">Player 1</span>
+								<select id="player-filter-player-one" class="selectpicker playerSelect player-filter-input" data-live-search="true">
+									<option></option>
+								</select>
+							</div>
+						</div>
+						<div class="col-xs-12">
+							<div class="input-group">
+								<span class="input-group-addon">Player 2</span>
+								<select id="player-filter-player-two" class="selectpicker playerSelect player-filter-input" data-live-search="true">
+									<option></option>
+								</select>
+							</div>
+						</div>-->
+						<div class="col-xs-12">
+							<div class="input-group">
+								<span class="input-group-addon">Game Name</span>
+								<select id="player-filter-game-name" class="selectpicker gameNameSelect player-filter-input" data-live-search="true">
+									<option></option>
+								</select>
+							</div>
+						</div>
+						<div class="col-xs-12">
+							<div class="input-group">
+								<span class="input-group-addon">Location</span>
+								<select id="player-filter-location" class="selectpicker locationSelect player-filter-input" data-live-search="true">
+									<option></option>
+								</select>
+							</div>
+						</div>
+						<!--<div class="col-xs-12">
+							<div class="input-group">
+								<span class="input-group-addon">Minimum Games Played</span>
+								<select id="player-filter-min-games" class="selectpicker player-filter-input">
+									<option></option>
+									<option>1</option>
+									<option>2</option>
+									<option>3</option>
+									<option>4</option>
+									<option>5</option>
+									<option>10</option>
+									<option>15</option>
+									<option>20</option>
+								</select>
+							</div>
+						</div>-->
+						<div class="form-group col-xs-12" style="display: none">
+							<input id="player-filter-date" type="date" class="form-control player-filter-input" placeholder="Date">
+						</div>
+					</div>
+				</div><!-- End Game Filter Inputs-->
+			</div><!-- End Modal Body-->
+			<div class="modal-footer">
+				<!--<div class="form-group col-xs-12 game-filter">-->
+					<button id="clearFiltersButton" class="btn btn-default" type="button">Clear</button>
+				<!--</div>-->
+				<!--<br><br>-->
+				<!--<div class="form-group col-xs-12 game-filter">-->
+					<button id="saveFiltersButton" class="btn btn-info" type="button" data-dismiss="modal">Save</button>
+				<!--</div>-->
+			</div>
+		</div><!-- /.modal-content -->
+	</div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
+<!------------------------------------------- Game Modal --------------------------------------->
+<div id="gameModal" class="modal fade" tabindex="-1" role="dialog">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 id="detailModalTitle" class="modal-title"></h4>
+      </div>
+      <div class="modal-body">
+    	  <div id="groupMembersTable"></div>
+    	  <div id="main-filter-inputs">
+      	<p id="gameModalDate"></p>
+      	<p id="gameModalLocation"></p>
+      	<p id="gameModalName"></p>
+      	<p id="gameModalMatchup"></p>
+      	<p id="gameModalWinner"></p>
+      	<p id="playerGameTableHeader"></p>
+      	<div id="playerGameTable"></div>
+      	</div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+      </div>
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
+<!------------------------------------------- Moobile Footer Nav --------------------------------------->
+<div id="footer" class="col-xs-12 navbar navbar-fixed-bottom" style="height: 50px; margin-bottom: 0; background-color: white; border-top: 1px solid #eee">
+	<div class="row nav" id="bottomNav" style="display: none">
+		<div class="col-xs-3 text-center"><a id="mobile-add-game" class="bottom-nav-link active"><i class="glyphicon glyphicon-plus"></i></a></div>
+		<div class="col-xs-3 text-center"><a id="mobile-game-history" class="bottom-nav-link"><i class="glyphicon glyphicon-list-alt"></i></a></div>
+		<div class="col-xs-3 text-center"><a id="mobile-leaderboard" class="bottom-nav-link"><i class="glyphicon glyphicon-sunglasses"></i></a></div>
+		<div class="col-xs-3 text-center"><a id="mobile-groups" class="bottom-nav-link"><i class="glyphicon glyphicon-th"></i></a></div>
+	</div>
+</div>
+<!------------------------------------------- Scripts --------------------------------------->
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js" integrity="sha256-VazP97ZCwtekAsvgPBSUwPFKdrwD3unUfSGVYrahUqU=" crossorigin="anonymous"></script>
+<script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>	
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-table/1.10.1/bootstrap-table.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.12.4/js/bootstrap-select.min.js"></script>
+<script src="js/post-data.js"></script>
+<script src="js/show-games.js"></script>
+<script src="js/show-players.js"></script>
+<script src="js/get-data.js"></script>
+<script src="js/groups.js"></script>
+<script src="js/darts.js"></script>
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-41286737-5"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-41286737-5');
+</script>
+</body>
+</html>
